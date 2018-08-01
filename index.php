@@ -2,7 +2,7 @@
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $db_name = "example_books";
+    $db_name = "example_prelims";
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $db_name);
@@ -13,13 +13,13 @@
     }
 
     // SELECTING ALL FROM A GIVEN DATABASE
-    $sql = "SELECT * FROM books;";
-    $people_result = $conn->query($sql);
-    /* if ($people_result->num_rows > 0) {
+    $sql = "SELECT * FROM animals;";
+    $animal_result = $conn->query($sql);
+    /* if ($animal_result->num_rows > 0) {
         // output data of each row
-        while($row = $people_result->fetch_assoc()) {
-            echo $row['people_id'];
-            echo $row['people_name'];
+        while($row = $animal_result->fetch_assoc()) {
+            echo $row['animal_id'];
+            echo $row['animal_name'];
             echo '</br>';
         }
     } else {
@@ -39,8 +39,12 @@
 
 <html>
     <style>
-        h1{
+        h1, h3{
             font-family: helvetica;
+        }
+
+        .table-container{
+            margin-bottom: 30px;
         }
 
         th {
@@ -65,27 +69,35 @@
         }
     </style>
 
-    <h1>BOOK DATABASE</h1>
-    <div>
+    <h1>ZOO DATABASE</h1>
+
+    <h3>ANIMALS</h3>
+    <!-- EXAMPLE: This query shows all records from the animals table -->
+    <!-- Start copy paste from here -->
+    <div class="table-container">
+        <?php 
+            $sql = "SELECT * FROM animals;";
+            $animal_result = $conn->query($sql);
+        ?>
         <table border="1" cellspacing="1" cellpadding="15" width="500">
             <tr>
                 <th>ID</th>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Published</th>
-                <th>Pages</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Food</th>
+                <th>Population</th>
             </tr>
         <?php
-            if ($people_result->num_rows > 0) {
+            if ($animal_result->num_rows > 0) {
                 // output data of each row
-                while($row = $people_result->fetch_assoc()) {
+                while($row = $animal_result->fetch_assoc()) {
         ?>
             <tr>
                 <td><?php echo $row["id"]; ?></td>
-                <td><?php echo $row["title"]; ?></td>
-                <td><?php echo $row["author"]; ?></td>
-                <td><?php echo $row["year_published"]; ?></td>
-                <td><?php echo $row["number_pages"]; ?></td>
+                <td><?php echo $row["name"]; ?></td>
+                <td><?php echo $row["type"]; ?></td>
+                <td><?php echo $row["food"]; ?></td>
+                <td><?php echo $row["population"]; ?></td>
             </tr>
         <?
                 }
@@ -95,4 +107,23 @@
         ?>
         </table>
     </div>
+    <!-- end copy paste from here -->
+
+    <h3>FOOD</h3>
+    <!-- ITEM NUMBER 1: Use SELECT to get all records of food items from the animal_food TABLE -->
+
+    <h3>ANIMAL TYPES</h3>
+    <!-- ITEM NUMBER 2: Use SUM and GROUP BY animals by type whether herbivore or carnivore and SHOW TOTAL COUNT OF EACH TYPE -->
+
+    <h3>ANIMALS WITH CHEAP FOOD</h3>
+    <!-- ITEM NUMBER 3: Use IN to select all animals with food that has a price less than or equal to 200 --> 
+
+    <h3>ANIMALS POPULATION COUNT BY TYPE</h3>
+    <!-- ITEM NUMBER 4: Use HAVING to select animals by type whether herbivore or carnivore only those type who exceed a population of 30 --> 
+
+    <h3>ANIMALS BY POPULATION HEALTH</h3>
+    <!-- ITEM NUMBER 5: USE CASE -->
+
+    <!-- BONUS ITEM: INSERT AN ANIMAL USING A PHP STATEMENT -->
+    
 </html>
